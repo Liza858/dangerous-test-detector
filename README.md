@@ -15,6 +15,10 @@ Also, you can fix these methods: press Alt + Enter to delete all 'c' from method
 * from command line: `./run_plugin.sh`
 * or from IntelliJ IDEA: run `runIde` gradle task
 
+## How to start
+
+Create new project in PyCharm and set Python interpreter
+
 
 
 <!-- Plugin description -->
