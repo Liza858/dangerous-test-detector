@@ -4,15 +4,23 @@
     <name>dangerous-test-detector</name>
     <vendor>liza858</vendor>
 
-    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.python</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <applicationService serviceImplementation="com.github.liza858.dangeroustestdetector.services.MyApplicationService"/>
-        <projectService serviceImplementation="com.github.liza858.dangeroustestdetector.services.MyProjectService"/>
+        <toolWindow id="Dangerous test detector"
+                    anchor="bottom"
+                    canCloseContents="false"
+                    factoryClass="com.github.liza858.dangeroustestdetector.ui.DetectorToolWindowFactory"
+                    icon="AllIcons.General.Error"/>
+
+        <localInspection language="Python"
+                         displayName="Test method name contains the letter 'c'"
+                         groupBundle="messages.MyBundle"
+                         groupKey="inspection.group"
+                         enabledByDefault="true"
+                         level="WARNING"
+                         implementationClass="com.github.liza858.dangeroustestdetector.DangerousTestInspection"/>
+
     </extensions>
 
-    <applicationListeners>
-        <listener class="com.github.liza858.dangeroustestdetector.listeners.MyProjectManagerListener"
-                  topic="com.intellij.openapi.project.ProjectManagerListener"/>
-    </applicationListeners>
 </idea-plugin>
