@@ -26,6 +26,8 @@ Also, you can fix these methods: press Alt + Enter to delete all 'c' from method
 
 The files on which the plugin was tested are located in the directory `./src/test/testData`
 
+Run tests from IntelliJ IDEA
+
 ## Example
 
 ![](./images/example.png)
