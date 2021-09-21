@@ -17,23 +17,34 @@ class DangerousTestInspection : LocalInspectionTool() {
         private val LOG = Logger.getInstance(DangerousTestInspection::class.java)
     }
 
+    /* check file and highlights Unittest dangerous methods */
     override fun checkFile(file: PsiFile, manager: InspectionManager, isOnTheFly: Boolean): Array<ProblemDescriptor>? {
         val dangerousMethods = DangerousTestDetector.getDangerousTestMethods(file)
-        ApplicationManager.getApplication().invokeLater { updateDetectorToolWindow(file, dangerousMethods) }
+        ApplicationManager.getApplication()
+            .invokeLater { updateDetectorToolWindow(file, dangerousMethods) } // updates ui in ui thread
         return dangerousMethods.map {
-            manager.createProblemDescriptor(it, MyBundle.message("inspection.error.message"), dangerousMethodQuickFixes, ProblemHighlightType.WARNING, isOnTheFly, false)
+            manager.createProblemDescriptor(
+                it,
+                MyBundle.message("inspection.error.message"),
+                dangerousMethodQuickFixes,
+                ProblemHighlightType.WARNING,
+                isOnTheFly,
+                false
+            )
         }.toTypedArray()
     }
 
+    /* write statistics to the tool window field: file name and total number of dangerous methods */
     private fun updateDetectorToolWindow(file: PsiFile, dangerousMethods: List<PyFunction>) {
         val detectorToolWindow = ToolWindowManager
-                .getInstance(file.project)
-                .getToolWindow("Dangerous test detector")
+            .getInstance(file.project)
+            .getToolWindow("Dangerous test detector")
         val contents = detectorToolWindow?.contentManager?.contents
         val detectorToolWindowPanel = contents?.getOrNull(0)?.component as? DetectorToolWindowPanel
         detectorToolWindowPanel?.setStatistics(file, dangerousMethods)
     }
 
+    /* delete all 'c' in Unittest dangerous methods */
     private class DangerousMethodQuickFix : LocalQuickFix {
         override fun getFamilyName() = MyBundle.message("inspection.quick.fix.message")
 

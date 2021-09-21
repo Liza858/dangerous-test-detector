@@ -24,12 +24,16 @@ class DangerousTestDetector {
 
         private fun isDangerousMethod(method: PyFunction) = method.name?.contains(DANGEROUS_CHAR) ?: false
 
+        /* finds Unittest classes in the children of the psi file */
         private fun getUnitTestClasses(file: PsiFile): List<PyClass> {
             return file.children
                 .filterIsInstance<PyClass>()
                 .filter { isUnitTestClass(it) }
         }
 
+        /* checks the class name, the file where it is defined,
+           the directory where the file is located
+        * */
         private fun isTestCaseClass(cls: PyClass): Boolean {
             val clsFile = cls.parent as? PyiFile
             val isCaseFile = clsFile?.name?.startsWith(TEST_CASE_FILE_NAME_BEGIN) ?: false
@@ -40,6 +44,9 @@ class DangerousTestDetector {
             return false
         }
 
+        /* checks all parents of the class
+           if it finds TestCaseClass -- return true else false
+        * */
         private fun isUnitTestClass(cls: PyClass): Boolean {
             val supersQueue = LinkedList<PyClass>()
             supersQueue.addAll(cls.getSuperClasses(null))
@@ -53,6 +60,7 @@ class DangerousTestDetector {
             return false
         }
 
+        /* get test methods from class */
         private fun getUnitTestMethods(cls: PyClass): List<PyFunction> {
             return cls.statementList.statements
                 .filterIsInstance<PyFunction>()
