@@ -17,7 +17,10 @@ Also, you can fix these methods: press Alt + Enter to delete all 'c' from method
 
 ## How to start
 
-Create new project in PyCharm and set Python interpreter
+* create new project in PyCharm and 
+* set Python interpreter
+* add new .py file to project
+* create Unittest class with several test methods
 
 
 
