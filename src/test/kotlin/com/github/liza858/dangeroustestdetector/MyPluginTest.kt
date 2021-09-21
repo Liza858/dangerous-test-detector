@@ -1,6 +1,5 @@
 package com.github.liza858.dangeroustestdetector
 
-import com.intellij.testFramework.TestDataPath
 import com.intellij.testFramework.fixtures.BasePlatformTestCase
 import com.jetbrains.python.PythonFileType
 import com.jetbrains.python.psi.PyClass
