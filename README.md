@@ -22,7 +22,13 @@ Also, you can fix these methods: press Alt + Enter to delete all 'c' from method
 * add new `.py` file to the project
 * create Unittest class with several test methods
 
+## Testing
 
+The files on which the plugin was tested are located in the directory `./src/test/testData`
+
+## Example
+
+![](./images/example.png)
 
 <!-- Plugin description -->
 <!-- Plugin description end -->
