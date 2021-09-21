@@ -23,7 +23,7 @@ class DangerousTestDetector {
         }
 
         /* consider both small and large letter c to be dangerous */
-        private fun isDangerousMethod(method: PyFunction) = method.name?.toLowerCase()?.contains(DANGEROUS_CHAR) ?: false
+        fun isDangerousMethod(method: PyFunction) = method.name?.toLowerCase()?.contains(DANGEROUS_CHAR) ?: false
 
         /* finds Unittest classes in the children of the psi file */
         private fun getUnitTestClasses(file: PsiFile): List<PyClass> {
@@ -62,7 +62,7 @@ class DangerousTestDetector {
         }
 
         /* get test methods from class */
-        private fun getUnitTestMethods(cls: PyClass): List<PyFunction> {
+        fun getUnitTestMethods(cls: PyClass): List<PyFunction> {
             return cls.statementList.statements
                 .filterIsInstance<PyFunction>()
                 .filter { it.name?.startsWith(UNIT_TEST_METHOD_BEGIN) ?: false }
